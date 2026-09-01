@@ -4,7 +4,7 @@
 using namespace std;
 
 // SWAP SORT
-
+/* 
 template<typename T>
 void swap(vector<T>& list, int i, int j){
 
@@ -64,33 +64,64 @@ void bubbleSort(vector<T>& list){
                 swap(list, j, j+1);
             }
         }
+    } */
+//}
+
+template<typename T>
+void selectionSort(vector<T>& list){
+    for(int i=0;i<list.size();i++){
+        int min=i;
+
+        for(int j=i+1;j<list.size();j++){
+            if(list[j]<list[min]){
+                min=j;
+            }
+        }
+
+        swap(list[i],list[min]);
     }
 }
 
+template<typename T>
+void insertionSort(vector<T>& list){
+    for(int i=1;i<list.size();i++){
+        T key=list[i];
+        int j=i-1;
+
+        while(j>=0 && list[j]>key){
+            list[j+1]=list[j];
+            j=j-1;
+        }
+
+        list[j+1]=key;
+    }
+}
 
 int main(){
+    vector<int> list={15,7,3,9,12,5,2};
+    vector<int> listOriginal=list;
 
-    vector<int> list = {15,7,3,9,12,5,2};
+    cout<<"Selection Sort:"<<endl;
 
-    vector<int> listOriginal = list;
+    selectionSort(list);
 
-    // SWAP SORT
-    /*
-    swapSort(list);
-
-    for(int i = 0; i < list.size(); i++){
-        cout << list[i] << " ";
-    }
-    */
-
-    // BUBBLE SORT
-    bubbleSort(list);
-
-    for(int i = 0; i < list.size(); i++){
-        cout << list[i] << " ";
+    for(int i=0;i<list.size();i++){
+        cout<<list[i]<<" ";
     }
 
-    cout << endl;
+    cout<<endl;
+
+    list=listOriginal;
+
+    cout<<"Insertion Sort:"<<endl;
+
+    insertionSort(list);
+
+    for(int i=0;i<list.size();i++){
+        cout<<list[i]<<" ";
+    }
+
+    cout<<endl;
 
     return 0;
 }
