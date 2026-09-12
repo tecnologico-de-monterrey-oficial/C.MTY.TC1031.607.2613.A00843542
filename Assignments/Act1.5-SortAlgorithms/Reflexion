@@ -1,0 +1,16 @@
+Reflexión
+
+1. ¿Qué algoritmos lograste implementar con mayor facilidad gracias al apoyo de Copilot?
+Los algoritmos que se me hicieron más fáciles de implementar fueron Swap Sort, Bubble Sort y Selection Sort, porque ya entendía un poco mejor cómo funcionaban y Copilot me ayudó a completar algunas partes del código. También me ayudó con Shell Sort, ya que ese no lo habíamos visto en clase y tuve que investigar cómo funcionaba para poder agregarlo al programa.
+
+2. ¿En qué casos Copilot te dio soluciones correctas de inmediato y en cuáles tuviste que corregir o ajustar la propuesta?
+En cosas más sencillas como crear los vectores aleatorios o imprimir las listas, las soluciones funcionaron casi desde el principio. Donde sí tuve que hacer más cambios fue al juntar todos los algoritmos en un mismo programa y hacer que funcionaran con los tres tipos de datos. También tuve que ajustar la parte de las comparaciones e intercambios porque no todos los algoritmos necesitaban mostrar esa información.
+
+3. ¿Consideras que Copilot te ayudó a ahorrar tiempo o más bien te obligó a pensar más sobre cómo funciona el algoritmo?
+Creo que sí me ayudó a ahorrar bastante tiempo, pero tampoco fue solamente copiar el código y ya. Varias veces tuve que probarlo, ver qué estaba haciendo y cambiar cosas para que funcionara como pedía la actividad. Entonces también me ayudó a entender mejor qué estaba pasando en cada parte del programa.
+
+4. Escribe un ejemplo concreto donde Copilot no resolvió el problema directamente y tuviste que razonar la solución.
+Un ejemplo fue la parte final donde tenía que sacar los tiempos para los vectores de 1,000, 10,000 y 100,000 datos. Al principio estaba midiendo cada algoritmo por separado, pero después tenía que encontrar una forma de hacerlo para todos los algoritmos y tipos de datos y que saliera en el formato que pedía la actividad. Ahí tuve que entender mejor cómo usar las mismas listas y cómo medir solamente el tiempo que tardaba el ordenamiento.
+
+5. ¿Qué hubieras hecho diferente si no hubieras tenido acceso a Copilot para esta actividad?
+Sin Copilot creo que me hubiera tardado mucho más, principalmente al momento de juntar todo en un solo programa. Probablemente hubiera usado más los códigos que vimos en clase y hubiera buscado por separado cómo hacer Shell Sort. También hubiera tenido que hacer más pruebas por mi cuenta para encontrar los errores, pero creo que al final hubiera seguido una lógica parecida, solo que me habría tomado más tiempo.
