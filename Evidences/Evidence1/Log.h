@@ -1,10 +1,8 @@
 #ifndef Log_h
 #define Log_h
-
 #include <vector>
 #include <iostream>
 #include <string>
-
 using namespace std;
 
 struct Log{
@@ -15,13 +13,10 @@ struct Log{
     string ip;
     string message;
     string key;
-
     // constructores
     Log();
-
     Log(int year, string month, int day, string time,
         string ip, string message, string key);
-
     // metodos
     string createKey();
 
@@ -31,7 +26,6 @@ struct Log{
     bool operator<=(const Log& other) const;
     bool operator==(const Log& other) const;
 };
-
 
 // constructor vacio
 Log::Log(){
@@ -43,8 +37,6 @@ Log::Log(){
     message = "";
     key = "";
 }
-
-
 // constructor con datos
 Log::Log(int year, string month, int day, string time,
          string ip, string message, string key){
@@ -57,8 +49,6 @@ Log::Log(int year, string month, int day, string time,
     this->message = message;
     this->key = key;
 }
-
-
 // crear llave para ordenar por fecha y hora
 string Log::createKey(){
 
@@ -114,8 +104,6 @@ string Log::createKey(){
 
     return key;
 }
-
-
 // operadores
 bool Log::operator>(const Log& other) const{
     return key > other.key;
