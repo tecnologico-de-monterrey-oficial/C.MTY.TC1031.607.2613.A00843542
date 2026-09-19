@@ -4,7 +4,7 @@
 #include <vector>
 #include <string>
 #include "Log.h"
-
+#include "Sorts.h"
 using namespace std;
 
 int main(){
@@ -57,6 +57,15 @@ int main(){
     cout << "IP: " << logs[0].ip << endl;
     cout << "Mensaje: " << logs[0].message << endl;
     cout << "Key: " << logs[0].key << endl;
+
+    swapSort(logs);
+
+    cout << endl;
+    cout << "Primer registro despues de ordenar:" << endl;
+    cout << logs[0].month << " "
+         << logs[0].day << " "
+         << logs[0].year << " "
+         << logs[0].time << endl;
 
     return 0;
 }
