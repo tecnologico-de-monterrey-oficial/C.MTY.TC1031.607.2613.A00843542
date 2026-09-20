@@ -3,34 +3,33 @@
 #include <sstream>
 #include <vector>
 #include <string>
-#include <chrono>
 #include "Log.h"
 #include "Sorts.h"
 using namespace std;
 
 int main(){
 
-    int opcionArchivo;
-    string nombreArchivo;
+int opcionArchivo;
+string nombreArchivo;
 
-    cout << "Selecciona el archivo:" << endl;
-    cout << "1. log607-1.txt" << endl;
-    cout << "2. log607-2.txt" << endl;
-    cout << "Opcion: ";
-    cin >> opcionArchivo;
+cout << "Selecciona el archivo:" << endl;
+cout << "1. log607-1.txt" << endl;
+cout << "2. log607-2.txt" << endl;
+cout << "Opcion: ";
+cin >> opcionArchivo;
 
-    if(opcionArchivo == 1){
-        nombreArchivo = "data/log607-1.txt";
-    }
-    else if(opcionArchivo == 2){
-        nombreArchivo = "data/log607-2.txt";
-    }
-    else{
-        cout << "Opcion invalida" << endl;
-        return 1;
-    }
+if(opcionArchivo == 1){
+    nombreArchivo = "data/log607-1.txt";
+}
+else if(opcionArchivo == 2){
+    nombreArchivo = "data/log607-2.txt";
+}
+else{
+    cout << "Opcion invalida" << endl;
+    return 1;
+}
 
-    ifstream archivo(nombreArchivo);
+ifstream archivo(nombreArchivo);
 
     if(!archivo.is_open()){
         cout << "No se pudo abrir el archivo" << endl;
@@ -93,18 +92,6 @@ int main(){
     cout << "Opcion: ";
     cin >> opcion;
 
-    cin.ignore();
-
-    string prediccion;
-
-    cout << endl;
-    cout << "Escribe tu prediccion sobre el tiempo de ejecucion:" << endl;
-    cout << "(Considera el algoritmo, el tamano y que tan ordenado esta el archivo)" << endl;
-    getline(cin, prediccion);
-
-    // Inicia la medicion del tiempo
-    auto inicio = chrono::high_resolution_clock::now();
-
     switch(opcion){
 
         case 1:
@@ -138,17 +125,7 @@ int main(){
         default:
             cout << "Opcion invalida" << endl;
             return 1;
-    }
-
-    // Termina la medicion del tiempo
-    auto fin = chrono::high_resolution_clock::now();
-
-    auto duracion = chrono::duration_cast<chrono::nanoseconds>(fin - inicio);
-
-    cout << endl;
-    cout << "Tiempo de ejecucion: "
-         << duracion.count()
-         << " nanosegundos" << endl;
+}
 
     cout << endl;
     cout << "Primer registro despues de ordenar:" << endl;
@@ -156,9 +133,6 @@ int main(){
          << logs[0].day << " "
          << logs[0].year << " "
          << logs[0].time << endl;
-
-    cout << endl;
-    cout << "Prediccion inicial: " << prediccion << endl;
 
     return 0;
 }
