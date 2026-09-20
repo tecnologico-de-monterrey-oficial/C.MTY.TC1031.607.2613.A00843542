@@ -6,6 +6,7 @@
 #include <chrono>
 #include "Log.h"
 #include "Sorts.h"
+#include "Search.h"
 using namespace std;
 
 int main(){
@@ -235,6 +236,75 @@ int main(){
 
         cout << endl;
         cout << "Archivo output607.txt creado correctamente." << endl;
+
+        // Buscar rango de fechas
+        string mesInicio;
+        int diaInicio;
+        int anioInicio;
+        string horaInicio;
+
+        string mesFin;
+        int diaFin;
+        int anioFin;
+        string horaFin;
+
+        cout << endl;
+        cout << "Ingresa la fecha y hora inicial:" << endl;
+        cout << "Formato: Mes Dia Anio HH:MM:SS" << endl;
+        cin >> mesInicio >> diaInicio >> anioInicio >> horaInicio;
+
+        cout << endl;
+        cout << "Ingresa la fecha y hora final:" << endl;
+        cout << "Formato: Mes Dia Anio HH:MM:SS" << endl;
+        cin >> mesFin >> diaFin >> anioFin >> horaFin;
+
+        Log logInicio(anioInicio, mesInicio, diaInicio, horaInicio, "", "", "");
+        logInicio.createKey();
+
+        Log logFin(anioFin, mesFin, diaFin, horaFin, "", "", "");
+        logFin.createKey();
+
+        int posicionInicio = busquedaInicio(logs, logInicio.key);
+        int posicionFin = busquedaFin(logs, logFin.key);
+
+        cout << endl;
+
+       if(posicionInicio <= posicionFin){
+
+        cout << "Posicion inicial: " << posicionInicio << endl;
+        cout << "Posicion final: " << posicionFin << endl;
+        cout << "Registros encontrados: "
+            << posicionFin - posicionInicio + 1 << endl;
+
+        ofstream archivoRango("range607.txt");
+
+        if(!archivoRango.is_open()){
+            cout << "No se pudo crear range607.txt" << endl;
+            return 1;
+        }
+
+        for(int i = posicionInicio; i <= posicionFin; i++){
+
+            archivoRango << logs[i].month << " ";
+
+            if(logs[i].day < 10){
+                archivoRango << "0";
+            }
+
+            archivoRango << logs[i].day << " "
+                        << logs[i].year << " "
+                        << logs[i].time << " "
+                        << logs[i].ip << " "
+                        << logs[i].message << endl;
+        }
+
+        archivoRango.close();
+
+        cout << "Archivo range607.txt creado correctamente." << endl;
+    }
+    else{
+        cout << "No se encontraron registros en ese rango." << endl;
+    }
 
         // Repetir prueba
         cout << endl;
