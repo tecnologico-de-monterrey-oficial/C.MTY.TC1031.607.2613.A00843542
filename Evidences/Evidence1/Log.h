@@ -104,6 +104,7 @@ string Log::createKey(){
 
     return key;
 }
+
 // operadores
 bool Log::operator>(const Log& other) const{
     return key > other.key;
@@ -123,6 +124,36 @@ bool Log::operator<=(const Log& other) const{
 
 bool Log::operator==(const Log& other) const{
     return key == other.key;
+}
+
+bool fechaValida(string month, int day, int year, string time){
+
+    bool mesValido = false;
+
+    if(month == "Jan" || month == "Feb" || month == "Mar" ||
+       month == "Apr" || month == "May" || month == "Jun" ||
+       month == "Jul" || month == "Aug" || month == "Sep" ||
+       month == "Oct" || month == "Nov" || month == "Dec"){
+        mesValido = true;
+    }
+
+    if(!mesValido){
+        return false;
+    }
+
+    if(day < 1 || day > 31){
+        return false;
+    }
+
+    if(year < 2000 || year > 2100){
+        return false;
+    }
+
+    if(time.size() != 8 || time[2] != ':' || time[5] != ':'){
+        return false;
+    }
+
+    return true;
 }
 
 #endif
