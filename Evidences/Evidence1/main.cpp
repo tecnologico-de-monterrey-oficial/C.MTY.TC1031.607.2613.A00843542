@@ -237,97 +237,111 @@ int main(){
         cout << endl;
         cout << "Archivo output607.txt creado correctamente." << endl;
 
-       // Buscar rango de fechas
-string mesInicio;
-int diaInicio;
-int anioInicio;
-string horaInicio;
+        // Buscar rango de fechas
+        string mesInicio;
+        int diaInicio;
+        int anioInicio;
+        string horaInicio;
 
-string mesFin;
-int diaFin;
-int anioFin;
-string horaFin;
+        string mesFin;
+        int diaFin;
+        int anioFin;
+        string horaFin;
 
-cout << endl;
-cout << "Ingresa la fecha y hora inicial:" << endl;
-cout << "Formato: Mes Dia Anio HH:MM:SS" << endl;
-cin >> mesInicio >> diaInicio >> anioInicio >> horaInicio;
+        cout << endl;
+        cout << "Ingresa la fecha y hora inicial:" << endl;
+        cout << "Formato: Mes Dia Anio HH:MM:SS" << endl;
+        cin >> mesInicio >> diaInicio >> anioInicio >> horaInicio;
 
-cout << endl;
-cout << "Ingresa la fecha y hora final:" << endl;
-cout << "Formato: Mes Dia Anio HH:MM:SS" << endl;
-cin >> mesFin >> diaFin >> anioFin >> horaFin;
+        cout << endl;
+        cout << "Ingresa la fecha y hora final:" << endl;
+        cout << "Formato: Mes Dia Anio HH:MM:SS" << endl;
+        cin >> mesFin >> diaFin >> anioFin >> horaFin;
 
-if(!fechaValida(mesInicio, diaInicio, anioInicio, horaInicio) ||
-   !fechaValida(mesFin, diaFin, anioFin, horaFin)){
+        if(!fechaValida(mesInicio, diaInicio, anioInicio, horaInicio) ||
+        !fechaValida(mesFin, diaFin, anioFin, horaFin)){
 
-    cout << endl;
-    cout << "Formato de fecha invalido." << endl;
-}
-else{
-
-    Log logInicio(anioInicio, mesInicio, diaInicio, horaInicio, "", "", "");
-    logInicio.createKey();
-
-    Log logFin(anioFin, mesFin, diaFin, horaFin, "", "", "");
-    logFin.createKey();
-
-    int posicionInicio = busquedaInicio(logs, logInicio.key);
-    int posicionFin = busquedaFin(logs, logFin.key);
-
-    cout << endl;
-
-    if(posicionInicio <= posicionFin){
-
-        cout << "Posicion inicial: " << posicionInicio << endl;
-        cout << "Posicion final: " << posicionFin << endl;
-        cout << "Registros encontrados: "
-             << posicionFin - posicionInicio + 1 << endl;
-
-        ofstream archivoRango("range607.txt");
-
-        if(!archivoRango.is_open()){
-            cout << "No se pudo crear range607.txt" << endl;
-            return 1;
+            cout << endl;
+            cout << "Formato de fecha invalido." << endl;
         }
+        else{
 
-        for(int i = posicionInicio; i <= posicionFin; i++){
+            Log logInicio(anioInicio, mesInicio, diaInicio, horaInicio, "", "", "");
+            logInicio.createKey();
 
-            archivoRango << logs[i].month << " ";
+            Log logFin(anioFin, mesFin, diaFin, horaFin, "", "", "");
+            logFin.createKey();
 
-            if(logs[i].day < 10){
-                archivoRango << "0";
+            int posicionInicio = busquedaInicio(logs, logInicio.key);
+            int posicionFin = busquedaFin(logs, logFin.key);
+
+            cout << endl;
+
+            ofstream archivoRango("range607.txt");
+
+            if(!archivoRango.is_open()){
+                cout << "No se pudo crear range607.txt" << endl;
+                return 1;
             }
 
-            archivoRango << logs[i].day << " "
-                         << logs[i].year << " "
-                         << logs[i].time << " "
-                         << logs[i].ip << " "
-                         << logs[i].message << endl;
+        if(posicionInicio <= posicionFin){
+
+    cout << "Posicion inicial: " << posicionInicio << endl;
+    cout << "Posicion final: " << posicionFin << endl;
+    cout << "Registros encontrados: "
+         << posicionFin - posicionInicio + 1 << endl;
+
+    for(int i = posicionInicio; i <= posicionFin; i++){
+
+        cout << logs[i].month << " ";
+
+        if(logs[i].day < 10){
+            cout << "0";
         }
 
-        archivoRango.close();
+        cout << logs[i].day << " "
+             << logs[i].year << " "
+             << logs[i].time << " "
+             << logs[i].ip << " "
+             << logs[i].message << endl;
 
-        cout << "Archivo range607.txt creado correctamente." << endl;
+        archivoRango << logs[i].month << " ";
+
+        if(logs[i].day < 10){
+            archivoRango << "0";
+        }
+
+        archivoRango << logs[i].day << " "
+                     << logs[i].year << " "
+                     << logs[i].time << " "
+                     << logs[i].ip << " "
+                     << logs[i].message << endl;
     }
-    else{
-        cout << "No se encontraron registros en ese rango." << endl;
-    }
+
+    cout << "Archivo range607.txt creado correctamente." << endl;
+}
+else{
+    cout << "No se encontraron registros en ese rango." << endl;
 }
 
-        // Repetir prueba
-        cout << endl;
-        cout << "Deseas realizar otra prueba?" << endl;
-        cout << "1. Si" << endl;
-        cout << "2. No" << endl;
-        cout << "Opcion: ";
-        cin >> repetir;
+archivoRango.close();
 
-        cout << endl;
-
-    }while(repetir == 1);
-
-    cout << "Programa terminado." << endl;
-
-    return 0;
 }
+
+// Repetir prueba
+cout << endl;
+cout << "Deseas realizar otra prueba?" << endl;
+cout << "1. Si" << endl;
+cout << "2. No" << endl;
+cout << "Opcion: ";
+cin >> repetir;
+
+cout << endl;
+
+}while(repetir == 1);
+
+cout << "Programa terminado." << endl;
+
+return 0;
+
+} 
