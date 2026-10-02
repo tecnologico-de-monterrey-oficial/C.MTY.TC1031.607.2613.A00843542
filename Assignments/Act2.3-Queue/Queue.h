@@ -13,42 +13,37 @@ private:
 public:
     Queue() : head(nullptr), tail(nullptr) {}
 
-    void pop();
+    T pop();
     void push(const T& data);
     T front();
     void print();
 };
 
 template <typename T>
-void Queue<T>::pop() {
+T Queue<T>::pop() {
     // validamos que no este vacio
-    if (head != nullptr) {
-
-        // validamos si solo hay un elemento
-        if (head == tail) {
-
-            // creamos un apuntador auxiliar a head
-            Node<T>* aux = head;
-
-            // borramos aux
-            delete aux;
-
-            // inicializamos head y tail
-            head = nullptr;
-            tail = nullptr;
-        }
-        else {
-
-            // creamos un apuntador auxiliar a head
-            Node<T>* aux = head;
-
-            // actualizamos head
-            head = head->next;
-
-            // borramos aux
-            delete aux;
-        }
+    if (head == nullptr) {
+        throw std::out_of_range("La fila esta vacia");
     }
+
+    // guardamos el dato que vamos a eliminar
+    T data = head->data;
+
+    // validamos si solo hay un elemento
+    if (head == tail) {
+        Node<T>* aux = head;
+        delete aux;
+        head = nullptr;
+        tail = nullptr;
+    }
+    else {
+        Node<T>* aux = head;
+        head = head->next;
+        delete aux;
+    }
+
+    // regresamos el elemento eliminado
+    return data;
 }
 
 template <typename T>

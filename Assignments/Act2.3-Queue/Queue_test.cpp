@@ -46,10 +46,7 @@ int main() {
 
             try {
                 // Obtenemos al cliente antes de eliminarlo
-                Cliente cliente = fila.front();
-
-                // Eliminamos al primer cliente
-                fila.pop();
+               Cliente cliente = fila.pop();
                 personas--;
 
                 cout << "Cliente atendido: " << cliente.nombre << endl;
