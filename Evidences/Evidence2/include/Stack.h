@@ -17,6 +17,7 @@ public:
     void push(const T& data);
     T top();
     void print();
+    bool isEmpty();
 };
 
 template <typename T>
@@ -75,6 +76,11 @@ void Stack<T>::print() {
     }
 
     std::cout << std::endl;
+}
+
+template <typename T>
+bool Stack<T>::isEmpty() {
+    return topNode == nullptr;
 }
 
 #endif // Stack_h

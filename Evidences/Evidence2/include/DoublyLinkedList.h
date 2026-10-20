@@ -21,6 +21,7 @@ public:
 
     void addFirst(T data);
     void addLast(T data);
+    NodeD<T>* getHead();
     void mergeSort(long long& comparaciones, int& profundidadMaxima);
     void insert(int index, T data);
     bool deleteAt(int index);
@@ -679,6 +680,11 @@ void DoublyLinkedList<T>::mergeSort(long long& comparaciones, int& profundidadMa
     }
 
     tail = aux;
+}
+
+template <typename T>
+NodeD<T>* DoublyLinkedList<T>::getHead() {
+    return head;
 }
 
 #endif /* DoublyLinkedList_h */
