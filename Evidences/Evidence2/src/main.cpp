@@ -144,6 +144,23 @@ int main() {
     int opcion = 0;
     bool ordenado = false;
 
+    NodeD<Registro>* revisarOrden = registros.getHead();
+
+if (revisarOrden != nullptr) {
+
+    ordenado = true;
+
+    while (revisarOrden->next != nullptr) {
+
+        if (revisarOrden->next->data < revisarOrden->data) {
+            ordenado = false;
+            break;
+        }
+
+        revisarOrden = revisarOrden->next;
+    }
+}
+
     bool hayBusqueda = false;
     string ultimoMes = "";
     int ultimoDia = 0;
@@ -196,8 +213,30 @@ int main() {
 
                 ordenado = true;
 
+                // Guardar los registros ordenados en un archivo
+ofstream archivoSalida("out/output607.out");
+
+NodeD<Registro>* actualSalida = registros.getHead();
+
+while (actualSalida != nullptr) {
+
+    archivoSalida << actualSalida->data.mes << " "
+                  << actualSalida->data.dia << " "
+                  << actualSalida->data.anio << " "
+                  << actualSalida->data.hora << " "
+                  << actualSalida->data.ip << " "
+                  << actualSalida->data.evento << endl;
+
+    actualSalida = actualSalida->next;
+}
+
+archivoSalida.close();
+
+cout << "Archivo ordenado guardado en out/output607.out" << endl;
+
                 auto tiempo =
                     chrono::duration_cast<chrono::microseconds>(fin - inicio);
+
 
                 cout << endl;
                 cout << "Algoritmo: Merge Sort" << endl;
