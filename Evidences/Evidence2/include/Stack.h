@@ -1,86 +1,70 @@
-#if !defined(Stack_h)
-#define Stack_h
+#pragma once
 
-#include <iostream>
-#include <stdexcept>
-#include "Node.h"
+#include "LinkedList.h"
 
 template <typename T>
 class Stack {
 private:
-    Node<T>* topNode;
+    LinkedList<T> lista;
 
 public:
-    Stack() : topNode(nullptr) {}
+    Stack();
 
-    T pop();
     void push(const T& data);
+    T pop();
+
+    T peek();
     T top();
-    void print();
+
     bool isEmpty();
+    int size();
+
+    void print();
 };
 
+
 template <typename T>
-T Stack<T>::pop() {
-    // validamos que no este vacio
-    if (topNode == nullptr) {
-        throw std::out_of_range("El stack esta vacio");
-    }
-
-    // guardamos el dato que vamos a eliminar
-    T data = topNode->data;
-
-    // creamos un apuntador auxiliar
-    Node<T>* aux = topNode;
-
-    // actualizamos el top
-    topNode = topNode->next;
-
-    // borramos el nodo
-    delete aux;
-
-    // regresamos el elemento eliminado
-    return data;
+Stack<T>::Stack() {
 }
+
 
 template <typename T>
 void Stack<T>::push(const T& data) {
-    // creamos un nuevo nodo
-    Node<T>* node = new Node<T>(data);
-
-    // el nuevo nodo apunta al top actual
-    node->next = topNode;
-
-    // actualizamos el top
-    topNode = node;
+    lista.addFirst(data);
 }
+
+
+template <typename T>
+T Stack<T>::pop() {
+    return lista.deleteFirst();
+}
+
+
+template <typename T>
+T Stack<T>::peek() {
+    return lista.getFirst();
+}
+
 
 template <typename T>
 T Stack<T>::top() {
-    // validamos que no este vacio
-    if (topNode == nullptr) {
-        throw std::out_of_range("El stack esta vacio");
-    }
-
-    // regresamos el ultimo elemento agregado
-    return topNode->data;
+    return peek();
 }
 
-template <typename T>
-void Stack<T>::print() {
-    Node<T>* aux = topNode;
-
-    while (aux != nullptr) {
-        std::cout << aux->data << " ";
-        aux = aux->next;
-    }
-
-    std::cout << std::endl;
-}
 
 template <typename T>
 bool Stack<T>::isEmpty() {
-    return topNode == nullptr;
+    return lista.isEmpty();
 }
 
-#endif // Stack_h
+
+template <typename T>
+int Stack<T>::size() {
+    return lista.getSize();
+}
+
+
+template <typename T>
+void Stack<T>::print() {
+    lista.print();
+}

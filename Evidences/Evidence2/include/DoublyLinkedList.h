@@ -1,10 +1,12 @@
 #ifndef DoublyLinkedList_h
 #define DoublyLinkedList_h
+#include <iostream>
 
 #include <stdexcept>
 #include "NodeD.h"
 
 using namespace std;
+
 template <typename T>
 class DoublyLinkedList {
 private:
@@ -23,6 +25,9 @@ public:
     void addLast(T data);
     NodeD<T>* getHead();
     void mergeSort(long long& comparaciones, int& profundidadMaxima);
+    int getSize();
+    void printForward();
+    void printBackward();
     void insert(int index, T data);
     bool deleteAt(int index);
     int findData(T data);
@@ -687,4 +692,38 @@ NodeD<T>* DoublyLinkedList<T>::getHead() {
     return head;
 }
 
+template <typename T>
+int DoublyLinkedList<T>::getSize() {
+    return size;
+}
+
+
+template <typename T>
+void DoublyLinkedList<T>::printForward() {
+
+    NodeD<T>* aux = head;
+
+    while (aux != nullptr) {
+        cout << aux->data << " ";
+        aux = aux->next;
+    }
+
+    cout << endl;
+}
+
+
+template <typename T>
+void DoublyLinkedList<T>::printBackward() {
+
+    NodeD<T>* aux = tail;
+
+    while (aux != nullptr) {
+        cout << aux->data << " ";
+        aux = aux->prev;
+    }
+
+    cout << endl;
+}
+
 #endif /* DoublyLinkedList_h */
+
