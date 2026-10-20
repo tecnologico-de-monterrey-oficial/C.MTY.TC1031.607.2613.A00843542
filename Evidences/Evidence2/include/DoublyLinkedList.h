@@ -5,17 +5,23 @@
 #include "NodeD.h"
 
 using namespace std;
-
 template <typename T>
 class DoublyLinkedList {
 private:
     NodeD<T>* head;
     NodeD<T>* tail;
     int size = 0;
+
+    NodeD<T>* dividir(NodeD<T>* inicio);
+    NodeD<T>* unir(NodeD<T>* izquierda, NodeD<T>* derecha, long long& comparaciones);
+    NodeD<T>* mergeSort(NodeD<T>* inicio, long long& comparaciones, int profundidad, int& profundidadMaxima);
+
 public:
     DoublyLinkedList() : head(nullptr), tail(nullptr), size(0) {}
+
     void addFirst(T data);
     void addLast(T data);
+    void mergeSort(long long& comparaciones, int& profundidadMaxima);
     void insert(int index, T data);
     bool deleteAt(int index);
     int findData(T data);
@@ -556,6 +562,123 @@ void DoublyLinkedList<T>::removeDuplicates() {
             aux = aux->next;
         }
     }
+}
+
+template <typename T>
+NodeD<T>* DoublyLinkedList<T>::dividir(NodeD<T>* inicio) {
+
+    NodeD<T>* lento = inicio;
+    NodeD<T>* rapido = inicio->next;
+
+    while (rapido != nullptr && rapido->next != nullptr) {
+        lento = lento->next;
+        rapido = rapido->next->next;
+    }
+
+    NodeD<T>* segundaMitad = lento->next;
+
+    lento->next = nullptr;
+
+    if (segundaMitad != nullptr) {
+        segundaMitad->prev = nullptr;
+    }
+
+    return segundaMitad;
+}
+
+template <typename T>
+NodeD<T>* DoublyLinkedList<T>::unir(NodeD<T>* izquierda, NodeD<T>* derecha, long long& comparaciones) {
+
+    if (izquierda == nullptr) {
+        return derecha;
+    }
+
+    if (derecha == nullptr) {
+        return izquierda;
+    }
+
+    comparaciones++;
+
+    if (!(derecha->data < izquierda->data)) {
+
+        izquierda->next = unir(izquierda->next, derecha, comparaciones);
+
+        if (izquierda->next != nullptr) {
+            izquierda->next->prev = izquierda;
+        }
+
+        izquierda->prev = nullptr;
+
+        return izquierda;
+    }
+    else {
+
+        derecha->next = unir(izquierda, derecha->next, comparaciones);
+
+        if (derecha->next != nullptr) {
+            derecha->next->prev = derecha;
+        }
+
+        derecha->prev = nullptr;
+
+        return derecha;
+    }
+}
+
+template <typename T>
+NodeD<T>* DoublyLinkedList<T>::mergeSort(NodeD<T>* inicio, long long& comparaciones, int profundidad, int& profundidadMaxima) {
+
+    if (profundidad > profundidadMaxima) {
+        profundidadMaxima = profundidad;
+    }
+
+    if (inicio == nullptr || inicio->next == nullptr) {
+        return inicio;
+    }
+
+    NodeD<T>* segundaMitad = dividir(inicio);
+
+    inicio = mergeSort(
+        inicio,
+        comparaciones,
+        profundidad + 1,
+        profundidadMaxima
+    );
+
+    segundaMitad = mergeSort(
+        segundaMitad,
+        comparaciones,
+        profundidad + 1,
+        profundidadMaxima
+    );
+
+    return unir(inicio, segundaMitad, comparaciones);
+}
+
+template <typename T>
+void DoublyLinkedList<T>::mergeSort(long long& comparaciones, int& profundidadMaxima) {
+
+    comparaciones = 0;
+    profundidadMaxima = 0;
+
+    if (head == nullptr || head->next == nullptr) {
+        return;
+    }
+
+    head = mergeSort(
+        head,
+        comparaciones,
+        1,
+        profundidadMaxima
+    );
+
+    NodeD<T>* aux = head;
+
+    while (aux->next != nullptr) {
+        aux = aux->next;
+    }
+
+    tail = aux;
 }
 
 #endif /* DoublyLinkedList_h */
