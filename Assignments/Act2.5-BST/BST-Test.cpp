@@ -47,12 +47,10 @@ int main() {
             case 2:
 
                 cout << endl;
-
-                bst.visit("preOrder");
-                bst.visit("inOrder");
-                bst.visit("postOrder");
-                bst.visit("levelByLevel");
-
+                    bst.visit(1);
+                    bst.visit(2);
+                    bst.visit(3);
+                    bst.visit(4);
                 break;
 
 

@@ -26,9 +26,8 @@ public:
     void insert(T data);
     bool find(T data);
     void print();
-    void visit(string method);
+    void visit(int method);
     void remove(T data);
-
     int height();
     void ancestors(T data);
     int whatLevelAmI(T data);
@@ -105,7 +104,7 @@ void BST<T>::remove(T data) {
     NodeT<T>* current = root;
     NodeT<T>* parent = nullptr;
 
-    // Buscamos el nodo
+    // Buscar el nodo
     while (current != nullptr && current->data != data) {
 
         parent = current;
@@ -117,7 +116,7 @@ void BST<T>::remove(T data) {
         }
     }
 
-    // No se encontró
+    // Si no se encontro
     if (current == nullptr) {
         cout << "El dato no se encuentra en el BST." << endl;
         return;
@@ -278,28 +277,29 @@ void BST<T>::postOrder(NodeT<T>* node) {
 
 
 // VISIT
+// 1 = Preorder
+// 2 = Inorder
+// 3 = Postorder
+// 4 = Level by level
 template <typename T>
-void BST<T>::visit(string method) {
+void BST<T>::visit(int method) {
 
-    if (method == "preOrder") {
+    if (method == 1) {
 
         cout << "Preorder: ";
         preOrder(root);
-        cout << endl;
 
-    } else if (method == "inOrder") {
+    } else if (method == 2) {
 
         cout << "Inorder: ";
         inOrder(root);
-        cout << endl;
 
-    } else if (method == "postOrder") {
+    } else if (method == 3) {
 
         cout << "Postorder: ";
         postOrder(root);
-        cout << endl;
 
-    } else if (method == "levelByLevel") {
+    } else if (method == 4) {
 
         cout << "Level by level: ";
 
@@ -328,12 +328,12 @@ void BST<T>::visit(string method) {
             }
         }
 
-        cout << endl;
-
     } else {
 
-        cout << "Metodo de recorrido invalido." << endl;
+        cout << "Metodo de recorrido invalido.";
     }
+
+    cout << endl;
 }
 
 
@@ -426,6 +426,5 @@ int BST<T>::whatLevelAmI(T data) {
 
     return -1;
 }
-
 
 #endif // BST_H
