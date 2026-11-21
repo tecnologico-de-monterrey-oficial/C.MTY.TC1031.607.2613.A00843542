@@ -79,30 +79,34 @@ private:
 
     bool horaValida(string time) {
 
-        if (time.size() != 8) {
-            return false;
-        }
+    if (time.size() != 8) {
+        return false;
+    }
 
-        if (time[2] != ':' || time[5] != ':') {
-            return false;
-        }
+    if (time[2] != ':' || time[5] != ':') {
+        return false;
+    }
 
-        try {
+    
+    int posiciones[6] = {0, 1, 3, 4, 6, 7};
 
-            int hour = stoi(time.substr(0, 2));
-            int minute = stoi(time.substr(3, 2));
-            int second = stoi(time.substr(6, 2));
+    for (int i = 0; i < 6; i++) {
 
-            return hour >= 0 && hour <= 23 &&
-                   minute >= 0 && minute <= 59 &&
-                   second >= 0 && second <= 59;
+        int pos = posiciones[i];
 
-        } catch (...) {
-
+        if (time[pos] < '0' || time[pos] > '9') {
             return false;
         }
     }
 
+    int hour = stoi(time.substr(0, 2));
+    int minute = stoi(time.substr(3, 2));
+    int second = stoi(time.substr(6, 2));
+
+    return hour >= 0 && hour <= 23 &&
+           minute >= 0 && minute <= 59 &&
+           second >= 0 && second <= 59;
+}
 
 public:
 
@@ -112,56 +116,78 @@ public:
     }
 
 
-    bool convertirIP(string ip, unsigned int& result) {
+   bool convertirIP(string ip, unsigned int& result) {
 
-        stringstream ss(ip);
-        string part;
+    if (ip.empty()) {
+        return false;
+    }
 
-        int values[4];
-        int count = 0;
+   
+    if (ip[0] == '.' || ip[ip.size() - 1] == '.') {
+        return false;
+    }
 
-        while (getline(ss, part, '.')) {
+    
+    int puntos = 0;
 
-            if (count >= 4 || part.empty()) {
-                return false;
-            }
-
-            for (int i = 0; i < part.size(); i++) {
-
-                if (part[i] < '0' || part[i] > '9') {
-                    return false;
-                }
-            }
-
-            try {
-
-                int value = stoi(part);
-
-                if (value < 0 || value > 255) {
-                    return false;
-                }
-
-                values[count] = value;
-                count++;
-
-            } catch (...) {
-
-                return false;
-            }
+    for (int i = 0; i < ip.size(); i++) {
+        if (ip[i] == '.') {
+            puntos++;
         }
+    }
 
-        if (count != 4) {
+    if (puntos != 3) {
+        return false;
+    }
+
+    stringstream ss(ip);
+    string part;
+
+    int values[4];
+    int count = 0;
+
+    while (getline(ss, part, '.')) {
+
+        if (count >= 4 || part.empty()) {
             return false;
         }
 
-        result =
-            ((unsigned int)values[0] << 24) |
-            ((unsigned int)values[1] << 16) |
-            ((unsigned int)values[2] << 8) |
-            (unsigned int)values[3];
+        for (int i = 0; i < part.size(); i++) {
 
-        return true;
+            if (part[i] < '0' || part[i] > '9') {
+                return false;
+            }
+        }
+
+        try {
+
+            int value = stoi(part);
+
+            if (value < 0 || value > 255) {
+                return false;
+            }
+
+            values[count] = value;
+            count++;
+
+        } catch (...) {
+
+            return false;
+        }
     }
+
+    if (count != 4) {
+        return false;
+    }
+
+    result =
+        ((unsigned int)values[0] << 24) |
+        ((unsigned int)values[1] << 16) |
+        ((unsigned int)values[2] << 8) |
+        (unsigned int)values[3];
+
+    return true;
+}
 
 
     bool cargar(string filename, BSTIP& tree) {
